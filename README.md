@@ -1,6 +1,7 @@
 # Introduction
 
 This is a poorly written application, and we're expecting the candidate to greatly improve this code base.
+Application updated 21/1/2022
 
 ## Instructions
 * **Consider this to be your project! Feel free to make any changes**

@@ -1,0 +1,56 @@
+package rules
+
+import com.sood.rahul.entities.Showing
+import com.sood.rahul.entities.Movie
+
+rule "specialCode 20%"
+    no-loop true
+    salience 1
+    when
+        $s : Movie(specialCode>0)
+        $d : Showing()
+    then
+        $d.getDiscounts().add($s.getTicketPrice()*.2);
+
+end
+
+rule "showSequence 1st gets 3$ off"
+    no-loop true
+    salience 2
+    when
+        $s : Movie()
+        $d : Showing(sequenceOfTheDay==1)
+    then
+        $d.getDiscounts().add(3.0);
+end
+
+rule "showSequence 2nd gets 2$ off"
+    no-loop true
+    salience 3
+    when
+        $s : Movie()
+        $d : Showing(sequenceOfTheDay==2)
+    then
+        $d.getDiscounts().add(2.0);
+end
+
+rule "25% off between 11 to 16"
+    no-loop true
+    salience 3
+    when
+        $s : Movie()
+        $d : Showing(showStartTime.getHour()>=11 && showStartTime.getHour()
+                    <=16)
+    then
+        $d.getDiscounts().add($s.getTicketPrice()*.25);
+end
+
+rule "Movies on 7th get a dollar off"
+    no-loop true
+    salience 3
+    when
+        $s : Movie()
+        $d : Showing(showStartTime.getDayOfMonth()==7)
+    then
+        $d.getDiscounts().add(1.0);
+end
